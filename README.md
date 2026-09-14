@@ -3,9 +3,12 @@
 Sitio estático de una sola página. No necesita servidor, base de datos ni compilación.
 
 ```
-index.html        el sitio completo (HTML, CSS y JavaScript en un archivo)
-data/site.json    los textos editados y la lista de fotos
-media/            las fotos y videos subidos
+index.html          el sitio completo (HTML, CSS y JavaScript en un archivo)
+data/site.json      los textos editados y la lista de fotos
+media/              las fotos y videos subidos
+icon.svg            el logotipo
+icon-32/180/512.png el logotipo en mapa de bits
+site.webmanifest    nombre e iconos para la pantalla de inicio del telefono
 ```
 
 ---
@@ -13,7 +16,8 @@ media/            las fotos y videos subidos
 ## 1. Publicar en GitHub Pages
 
 1. Crear un repositorio nuevo en GitHub, por ejemplo `espino-web`. **Público** (GitHub Pages gratis requiere repositorio público).
-2. Subir estos tres archivos y las dos carpetas, tal como están.
+2. Subir todo el contenido de esta carpeta, tal como está.
+   > **Si la carpeta `media` no se sube, no importa.** Empieza vacía y GitHub no acepta carpetas vacías. Se crea sola la primera vez que publique una foto desde el panel de administrador. Lo único que no puede faltar es `index.html` y la carpeta `data` con `site.json`.
 3. En el repositorio: **Settings → Pages**.
 4. En *Source* escoger **Deploy from a branch**, rama `main`, carpeta `/ (root)`. Guardar.
 5. En un minuto la página queda en `https://<usuario>.github.io/espino-web/`.

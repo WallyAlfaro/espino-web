@@ -426,6 +426,9 @@ footer.site{border-top:1px solid var(--line);background:var(--surface-2);padding
 .foot-links{display:flex;gap:16px;flex-wrap:wrap}
 .foot-links a{font-size:.85rem;color:var(--ink-2);text-decoration:none;font-weight:600}
 .foot-links a:hover{color:var(--ink)}
+/* the way in for whoever holds the token; it does nothing without one */
+.foot-links a.adminlink{color:var(--ink-3);font-weight:500;font-size:.78rem}
+.foot-links a.adminlink:hover{color:var(--ink-2)}
 
 /* ================= overlays ================= */
 .lb{position:fixed;inset:0;z-index:200;background:rgba(6,10,8,.92);display:none;align-items:center;justify-content:center;padding:24px}
@@ -857,6 +860,7 @@ body.is-admin:not(.preview) .tilebar{display:flex}
       <a href="#remodelacion" data-i18n="nav1">Remodeling</a>
       <a href="#jardineria" data-i18n="nav2">Landscaping</a>
       <a href="#contacto" data-i18n="nav4">Contact</a>
+      <a href="#/admin" id="adminLink" class="adminlink" hidden>Admin</a>
     </div>
     <p class="licenseline" data-ct="license"></p>
   </div>
@@ -1402,6 +1406,7 @@ var MSG = {
   langOffer:"Would you like to see this page in Spanish?",
   langYes:"Sí, en español", langNo:"No, thanks",
   demoPublic:"Sample illustrations — real photos of our jobs are on the way.",
+  adminHere:"Admin · signed in",
   msgTitle:"Your message is ready",
   msgHint:"Copy it and send it however you prefer, or use the buttons below.",
   copyMsg:"Copy the message", copyDone:"Copied — paste it into your email or WhatsApp.",
@@ -1463,6 +1468,7 @@ var MSG = {
   langOffer:"¿Prefiere ver esta página en español?",
   langYes:"Sí, en español", langNo:"No, thanks",
   demoPublic:"Ilustraciones de muestra — las fotos reales de nuestros trabajos vienen en camino.",
+  adminHere:"Admin · sesión iniciada",
   msgTitle:"Su mensaje está listo",
   msgHint:"Cópielo y envíelo como prefiera, o use los botones de abajo.",
   copyMsg:"Copiar el mensaje", copyDone:"Copiado — péguelo en su correo o en WhatsApp.",
@@ -1683,6 +1689,10 @@ function applyStatic(){
   $("ghTokenLabel").textContent = m("ghToken");
   $("ghSave").textContent = m("ghEnter");
   $("ghForget").textContent = m("ghForget");
+
+  /* only the published site has a sign-in; inside Claude the permission is the login */
+  $("adminLink").hidden = (MODE !== "static");
+  $("adminLink").textContent = GH ? m("adminHere") : "Admin";
 
   $("langbarText").textContent = MSG.es.langOffer;
   $("langbarYes").textContent = MSG.es.langYes;
@@ -2459,7 +2469,8 @@ function readRoute(){
   var mm = h.match(/^#\/s\/(remodeling|landscaping)\/([A-Za-z]+)$/);
   if(mm && SDEF[mm[2]]) return {name:"service", cat:mm[1], id:mm[2]};
   if(h === "#/trabajos" || h === "#/work") return {name:"folio"};
-  if(h === "#/admin") return {name:"admin"};
+  /* accept the admin address however it gets typed */
+  if(/^#\/?(admin|administrador)\/?$/i.test(h)) return {name:"admin"};
   return {name:"home", anchor:h};
 }
 function applyRoute(){
