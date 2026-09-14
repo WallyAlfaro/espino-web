@@ -1,0 +1,8 @@
+Aqui se guardan las fotos y los videos del sitio.
+
+No hay que poner nada a mano. Cuando suba una foto desde el panel de
+administrador y presione "Publicar cambios", el archivo aparece aqui solo.
+
+Este archivo de texto solo existe para que GitHub acepte la carpeta,
+porque GitHub no deja subir carpetas vacias. Se puede borrar despues de
+que entre la primera foto.
